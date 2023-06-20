@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: ./microservice-app/
+      dockerfile: Dockerfile
+    container_name: microservice-app
+    restart: always
+    volumes:
+      - ./microservice-app/:/home/app
+    ports:
+      - 8000:8000
+    depends_on:
+      - external
+
+  external:
+    build:
+      context: ./microservice-external/
+      dockerfile: Dockerfile
+    container_name: microservice-external
+    restart: always
+    volumes:
+      - ./microservice-external/:/home/app
+    ports:
+      - 9000:9000
